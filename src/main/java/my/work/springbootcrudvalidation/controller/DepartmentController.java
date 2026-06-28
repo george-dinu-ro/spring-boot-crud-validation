@@ -8,6 +8,7 @@ import my.work.springbootcrudvalidation.validation.OnCreate;
 import my.work.springbootcrudvalidation.validation.OnUpdate;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,12 @@ public class DepartmentController {
             @RequestBody @Validated(OnUpdate.class) DepartmentProjection projection,
             @PathVariable @Positive(message = "Department's id should be positive") int id) {
         return departmentService.updateEntity(projection, id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable int id) {
+        departmentService.delete(id);
     }
 
 }
