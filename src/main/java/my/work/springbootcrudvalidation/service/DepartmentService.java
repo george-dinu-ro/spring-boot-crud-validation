@@ -6,6 +6,8 @@ import my.work.springbootcrudvalidation.projection.DepartmentProjection;
 import my.work.springbootcrudvalidation.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DepartmentService {
@@ -19,6 +21,11 @@ public class DepartmentService {
         entity = departmentRepository.save(entity);
 
         return departmentMapper.toProjection(entity);
+    }
+
+    public List<DepartmentProjection> read() {
+        var entities = departmentRepository.findAll();
+        return departmentMapper.toProjection(entities);
     }
 
 }
