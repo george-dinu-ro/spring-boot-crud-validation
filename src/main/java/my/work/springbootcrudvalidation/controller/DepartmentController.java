@@ -53,7 +53,7 @@ public class DepartmentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@PathVariable int id) {
+    void delete(@PathVariable @Positive(message = "Department's id should be positive") int id) {
         departmentService.delete(id);
     }
 

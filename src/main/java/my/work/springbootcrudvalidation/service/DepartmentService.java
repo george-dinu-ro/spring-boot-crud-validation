@@ -48,11 +48,12 @@ public class DepartmentService {
     }
 
     public void delete(int id) {
-        departmentRepository.findById(id).ifPresentOrElse(
-                departmentRepository::delete,
-                () -> {
-                    throw new ResourceNotFoundException(String.format("Department with id %d doesn't exist on database", id));
-                });
+        departmentRepository.findById(id)
+                .ifPresentOrElse(
+                        departmentRepository::delete,
+                        () -> {
+                            throw new ResourceNotFoundException(String.format("Department with id %d doesn't exist on database", id));
+                        });
     }
 
     private static void updateEntity(DepartmentEntity entity, DepartmentProjection projection) {
