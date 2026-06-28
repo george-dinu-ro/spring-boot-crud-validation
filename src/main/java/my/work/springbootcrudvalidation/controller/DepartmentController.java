@@ -1,10 +1,11 @@
 package my.work.springbootcrudvalidation.controller;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import my.work.springbootcrudvalidation.projection.DepartmentProjection;
 import my.work.springbootcrudvalidation.service.DepartmentService;
+import my.work.springbootcrudvalidation.validation.OnCreate;
+import my.work.springbootcrudvalidation.validation.OnUpdate;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ public class DepartmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    DepartmentProjection create(@RequestBody @Valid DepartmentProjection projection) {
+    DepartmentProjection create(@RequestBody @Validated(OnCreate.class) DepartmentProjection projection) {
         return departmentService.create(projection);
     }
 
@@ -43,7 +44,9 @@ public class DepartmentController {
     }
 
     @PutMapping("/{id}")
-    DepartmentProjection update(@RequestBody DepartmentProjection projection, @PathVariable int id) {
+    DepartmentProjection update(
+            @RequestBody @Validated(OnUpdate.class) DepartmentProjection projection,
+            @PathVariable @Positive(message = "Department's id should be positive") int id) {
         return departmentService.updateEntity(projection, id);
     }
 
