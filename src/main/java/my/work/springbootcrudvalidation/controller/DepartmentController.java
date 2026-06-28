@@ -1,5 +1,6 @@
 package my.work.springbootcrudvalidation.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import my.work.springbootcrudvalidation.projection.DepartmentProjection;
 import my.work.springbootcrudvalidation.service.DepartmentService;
@@ -19,7 +20,7 @@ public class DepartmentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    DepartmentProjection create(@RequestBody DepartmentProjection projection) {
+    DepartmentProjection create(@RequestBody @Valid DepartmentProjection projection) {
         return departmentService.create(projection);
     }
 
