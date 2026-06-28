@@ -40,20 +40,20 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}")
-    DepartmentProjection read(@PathVariable @Positive(message = "Department's id should be positive") int id) {
+    DepartmentProjection read(@PathVariable @Positive(message = "{department.id.positive}") int id) {
         return departmentService.read(id);
     }
 
     @PutMapping("/{id}")
     DepartmentProjection update(
             @RequestBody @Validated(OnUpdate.class) DepartmentProjection projection,
-            @PathVariable @Positive(message = "Department's id should be positive") int id) {
+            @PathVariable @Positive(message = "{department.id.positive}") int id) {
         return departmentService.updateEntity(projection, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@PathVariable @Positive(message = "Department's id should be positive") int id) {
+    void delete(@PathVariable @Positive(message = "{department.id.positive}") int id) {
         departmentService.delete(id);
     }
 
