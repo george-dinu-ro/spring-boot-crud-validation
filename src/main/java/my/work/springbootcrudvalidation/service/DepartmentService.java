@@ -1,6 +1,7 @@
 package my.work.springbootcrudvalidation.service;
 
 import lombok.RequiredArgsConstructor;
+import my.work.springbootcrudvalidation.exception.ResourceNotFoundException;
 import my.work.springbootcrudvalidation.mapper.DepartmentMapper;
 import my.work.springbootcrudvalidation.projection.DepartmentProjection;
 import my.work.springbootcrudvalidation.repository.DepartmentRepository;
@@ -26,6 +27,13 @@ public class DepartmentService {
     public List<DepartmentProjection> read() {
         var entities = departmentRepository.findAll();
         return departmentMapper.toProjection(entities);
+    }
+
+    public DepartmentProjection read(int id) {
+        var entity = departmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Department with id %d doesn't exist on database", id)));
+
+        return departmentMapper.toProjection(entity);
     }
 
 }
