@@ -1,7 +1,6 @@
 package my.work.springbootcrudvalidation.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import my.work.springbootcrudvalidation.projection.DepartmentProjection;
@@ -11,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,6 +40,11 @@ public class DepartmentController {
     @GetMapping("/{id}")
     DepartmentProjection read(@PathVariable @Positive(message = "Department's id should be positive") int id) {
         return departmentService.read(id);
+    }
+
+    @PutMapping("/{id}")
+    DepartmentProjection update(@RequestBody DepartmentProjection projection, @PathVariable int id) {
+        return departmentService.updateEntity(projection, id);
     }
 
 }
