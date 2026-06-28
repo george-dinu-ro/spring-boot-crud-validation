@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +26,20 @@ public class DepartmentEntity {
     private String name;
 
     private String description;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DepartmentEntity that = (DepartmentEntity) o;
+
+        return Objects.nonNull(this.id) && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getClass());
+    }
 
 }
